@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            background-color: #ccc;
+            width: 100%;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            display: grid;
+            /* place-content: center; */
+            place-items: center;
+        }
+        h1{
+            color: #ccc;
+        }
+        #app {
+            background-color:rgb(0, 0, 0);
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: all 0.2s;
+            box-shadow: 5px 5px rgba(72, 74, 65, 0.2);
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            color: aliceblue;
+            text-decoration: none;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #app input:hover{
+            box-shadow: 2px 2px rgb(198, 182, 154);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task">
+        <button onclick="addTask() ">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${taskText}</span>
+                    <button onclick="removeTask(this)">Remove</button>
+                `;
+                taskList.appendChild(li);
+                taskInput.value = '';
+            }
+        }
+
+        function removeTask(button) {
+            const li = button.parentElement;
+            taskList.removeChild(li);
+        }
+
+        taskInput.addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {
+                addTask();
+            }
+        });
+    </script>
+</body>
+</html>
